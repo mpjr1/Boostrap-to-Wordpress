@@ -28,6 +28,10 @@ $who_feature_image     = get_field('who_feature_image');
 $who_section_title     = get_field('who_section_title');
 $who_section_body      = get_field('who_section_body');
 
+$features_section_image= get_field('features_section_images');
+$features_section_title= get_field('features_section_title');
+$features_section_body = get_field('features_section_body');
+
 get_header(); ?>
 
 <!--Hero Section-->
@@ -94,7 +98,7 @@ get_header(); ?>
                     <!-- If user uploaded an image-->
                     <?php if( !empty($income_feature_image) ) :  ?>
                    
-                    <img src="<?php echo $income_feature_image['url']; ?>" alt="<?php echo $income_feature_image['alt'] ?>">
+                    <img src="<?php echo $income_feature_image['url']; ?>" alt="<?php echo $income_feature_image['alt']; ?>">
                     
                     <?php endif; ?>
                     
@@ -127,7 +131,7 @@ get_header(); ?>
                 <!-- If user uploaded an image-->
                     <?php if( !empty($who_feature_image) ) :  ?>
                    
-                    <img src="<?php echo $who_feature_image['url']; ?>" alt="<?php echo $who_feature_image['alt'] ?>">
+                    <img src="<?php echo $who_feature_image['url']; ?>" alt="<?php echo $who_feature_image['alt']; ?>">
                     
                     <?php endif; ?>
                 
@@ -150,40 +154,40 @@ get_header(); ?>
             <div class="container">
                 
                 <div class="section-header">
-                    <img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/icon-rocket.png" alt="Rocket">
-                    <h2>Course Features</h2>
+               
+               <!-- If user uploaded an image-->
+                    <?php if( !empty($features_section_image) ) :  ?>
+                   
+                    <img src="<?php echo $features_section_image['url']; ?>" alt="<?php echo $features_section_image['alt']; ?>">
+                    
+                    <?php endif; ?>
+               
+                    <h2><?php echo $features_section_title; ?></h2>
+                    
+                    <!-- If user added body text -->
+                    <?php if( !empty($features_section_body) ) :  ?>
+                    
+                    <p class="lead"><?php echo $features_section_body; ?></p>
+                    
+                    <?php endif; ?>
                 </div><!--Section Header-->
                 
                 <div class="row">
-                    <div class="col-sm-2">
-                        <i class="ci ci-computer"></i>
-                        <h4>Lifetime Access to 80+ Lectures</h4>
+                    
+                    <?php $loop = new WP_Query( array( 'post_type' => 'course_feature', 'orderby' => 'post_id', 'order' => 'ASC'  )  );  ?>
+                    
+                    <?php while( $loop->have_posts() ) : $loop->the_post(); ?>
+                    
+                    
+                       <div class="col-sm-2">
+                        <i class="<?php the_field('course_feature_icon'); ?>"></i>
+                        <h4><?php the_title();  ?></h4>
                     </div><!--Column-->
                     
-                    <div class="col-sm-2">
-                        <i class="ci ci-watch"></i>
-                        <h4>10+ hours of HD video content</h4>
-                    </div><!--Column-->
                     
-                    <div class="col-sm-2">
-                        <i class="ci ci-calendar"></i>
-                        <h4>30-day money back guarantee</h4>
-                    </div><!--Column-->
+                    <?php endwhile; ?>
                     
-                    <div class="col-sm-2">
-                        <i class="ci ci-community"></i>
-                        <h4>Access to a community of like-minded students</h4>
-                    </div><!--Column-->
                     
-                    <div class="col-sm-2">
-                        <i class="ci ci-instructor"></i>
-                        <h4>Direct access to the instructor </h4>
-                    </div><!--Column-->
-                    
-                    <div class="col-sm-2">
-                        <i class="ci ci-device"></i>
-                        <h4>Accessible content on your mobile devices</h4>
-                    </div><!--Column-->
                     
                 </div><!--Row-->
                 
